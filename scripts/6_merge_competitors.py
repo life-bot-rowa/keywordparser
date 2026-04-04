@@ -112,7 +112,11 @@ def main():
         if not kw:
             continue
 
+        # Update KD for existing keywords if it was 0
         if kw in existing:
+            kd = row.get("keyword_difficulty", 0)
+            if kd and str(kd) != "0":
+                existing[kw]["keyword_difficulty"] = kd
             continue
 
         volume = int(float(row.get("volume", 0) or 0))
