@@ -90,7 +90,8 @@ def parse_keyword_suggestions(data: dict) -> list[dict]:
     keywords = []
     for task in data.get("tasks", []):
         for res in task.get("result", []) or []:
-            for item in res.get("items", []):
+            items = res.get("items") or []
+            for item in items:
                 kw_info = item.get("keyword_info", {})
                 keywords.append({
                     "keyword": item.get("keyword", ""),
@@ -106,7 +107,8 @@ def parse_related_keywords(data: dict) -> list[dict]:
     keywords = []
     for task in data.get("tasks", []):
         for res in task.get("result", []) or []:
-            for item in res.get("items", []):
+            items = res.get("items") or []
+            for item in items:
                 kw_data = item.get("keyword_data", {})
                 kw_info = kw_data.get("keyword_info", {})
                 keywords.append({
@@ -202,11 +204,15 @@ def main():
     all_keywords = []
     for seed in seeds:
         print(f"\n  === Seed: '{seed}' ===", flush=True)
-        kws = expand_seed(seed)
-        for kw in kws:
-            kw["source"] = "seed_expansion"
-            kw["seed"] = seed
-        all_keywords.extend(kws)
+        try:
+            kws = expand_seed(seed)
+            for kw in kws:
+                kw["source"] = "seed_expansion"
+                kw["seed"] = seed
+            all_keywords.extend(kws)
+        except Exception as e:
+            print(f"  ERROR processing seed '{seed}': {e}", flush=True)
+            print(f"  Continuing with next seed...", flush=True)
 
     print(f"\n  Total: {len(all_keywords)} keywords (before dedup)")
 
