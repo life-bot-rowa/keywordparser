@@ -16,7 +16,7 @@ GOOGLE_ADS_CUSTOMER_ID = os.getenv("GOOGLE_ADS_CUSTOMER_ID")
 
 # --- Groq (intent classification) ---
 GROQ_API_KEY = os.getenv("GROQ_API_KEY")
-GROQ_MODEL = os.getenv("GROQ_MODEL", "llama-3.3-70b-versatile")
+GROQ_MODEL = os.getenv("GROQ_MODEL", "llama-3.1-8b-instant")
 
 # --- Telegram (optional) ---
 TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
@@ -35,7 +35,7 @@ STOP_WORDS = [
 
 # --- Batch sizes ---
 DATAFORSEO_BATCH_SIZE = 1000
-GROQ_BATCH_SIZE = 50
+GROQ_BATCH_SIZE = 10
 
 # --- Paths ---
 SEEDS_FILE = "seeds/seeds.txt"
