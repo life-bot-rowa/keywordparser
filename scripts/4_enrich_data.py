@@ -31,25 +31,24 @@ def get_google_ads_client() -> GoogleAdsClient:
 
 
 def enrich_search_volume(keywords: list[str]) -> dict:
-    """Fetch search volume data via Google Ads Keyword Planner."""
+    """Fetch search volume via Google Ads GenerateKeywordHistoricalMetrics (bulk)."""
     client = get_google_ads_client()
     keyword_plan_idea_service = client.get_service("KeywordPlanIdeaService")
-    request = client.get_type("GenerateKeywordIdeasRequest")
+    request = client.get_type("GenerateKeywordHistoricalMetricsRequest")
 
     request.customer_id = config.GOOGLE_ADS_CUSTOMER_ID
     request.language = client.get_service("GoogleAdsService").language_constant_path("1000")
     request.geo_target_constants.append(
         client.get_service("GoogleAdsService").geo_target_constant_path("2840")
     )
-    request.keyword_seed.keywords.extend(keywords)
-    request.include_adult_keywords = False
+    request.keywords.extend(keywords)
 
     result_map = {}
     try:
-        response = keyword_plan_idea_service.generate_keyword_ideas(request=request)
-        for idea in response:
-            metrics = idea.keyword_idea_metrics
-            kw = idea.text.lower()
+        response = keyword_plan_idea_service.generate_keyword_historical_metrics(request=request)
+        for result in response.results:
+            kw = result.text.lower()
+            metrics = result.keyword_metrics
             result_map[kw] = {
                 "volume": metrics.avg_monthly_searches or 0,
                 "cpc": (metrics.average_cpc_micros or 0) / 1_000_000,
@@ -113,9 +112,9 @@ def main():
 
     keywords_list = [row["keyword"] for row in rows]
 
-    # Google Ads: volume + CPC + competition (batches of 20 — API limit)
+    # Google Ads: volume + CPC + competition (batches of 700)
     volume_data = {}
-    batch_size = 20
+    batch_size = 700
     for i in range(0, len(keywords_list), batch_size):
         batch = keywords_list[i : i + batch_size]
         batch_num = i // batch_size + 1
