@@ -33,6 +33,9 @@ def enrich_search_volume(keywords: list[str]) -> dict:
         auth=(config.DATAFORSEO_LOGIN, config.DATAFORSEO_PASSWORD),
         timeout=120,
     )
+    if resp.status_code == 402:
+        print("  WARNING: 402 Payment Required — skipping search volume batch")
+        return {}
     resp.raise_for_status()
     data = resp.json()
 
@@ -69,6 +72,9 @@ def enrich_keyword_difficulty(keywords: list[str]) -> dict:
         auth=(config.DATAFORSEO_LOGIN, config.DATAFORSEO_PASSWORD),
         timeout=120,
     )
+    if resp.status_code == 402:
+        print("  WARNING: 402 Payment Required — skipping KD batch")
+        return {}
     resp.raise_for_status()
     data = resp.json()
 

@@ -39,6 +39,9 @@ def get_related_keywords(seeds: list[str]) -> list[dict]:
             auth=(config.DATAFORSEO_LOGIN, config.DATAFORSEO_PASSWORD),
             timeout=120,
         )
+        if resp.status_code == 402:
+            print(f"  WARNING: 402 Payment Required — skipping seed '{seed}'")
+            continue
         resp.raise_for_status()
         data = resp.json()
 

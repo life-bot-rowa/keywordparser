@@ -40,6 +40,9 @@ def get_domain_keywords(domain: str) -> list[dict]:
             auth=(config.DATAFORSEO_LOGIN, config.DATAFORSEO_PASSWORD),
             timeout=120,
         )
+        if resp.status_code == 402:
+            print(f"  WARNING: 402 Payment Required — stopping pagination for '{domain}' (got {len(all_keywords)} keywords)")
+            break
         resp.raise_for_status()
         data = resp.json()
 
