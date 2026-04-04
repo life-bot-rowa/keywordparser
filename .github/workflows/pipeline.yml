@@ -21,17 +21,16 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
-      # Steps 1-4 temporarily disabled — using existing keywords_final.csv
-      # - name: Step 1 - Expand seeds
-      #   env:
-      #     GOOGLE_ADS_DEVELOPER_TOKEN: ${{ secrets.GOOGLE_ADS_DEVELOPER_TOKEN }}
-      #     GOOGLE_ADS_CLIENT_ID: ${{ secrets.GOOGLE_ADS_CLIENT_ID }}
-      #     GOOGLE_ADS_CLIENT_SECRET: ${{ secrets.GOOGLE_ADS_CLIENT_SECRET }}
-      #     GOOGLE_ADS_REFRESH_TOKEN: ${{ secrets.GOOGLE_ADS_REFRESH_TOKEN }}
-      #     GOOGLE_ADS_CUSTOMER_ID: ${{ secrets.GOOGLE_ADS_CUSTOMER_ID }}
-      #     DATAFORSEO_LOGIN: ${{ secrets.DATAFORSEO_LOGIN }}
-      #     DATAFORSEO_PASSWORD: ${{ secrets.DATAFORSEO_PASSWORD }}
-      #   run: python scripts/1_expand_seeds.py
+      - name: Step 1 - Expand seeds
+        env:
+          GOOGLE_ADS_DEVELOPER_TOKEN: ${{ secrets.GOOGLE_ADS_DEVELOPER_TOKEN }}
+          GOOGLE_ADS_CLIENT_ID: ${{ secrets.GOOGLE_ADS_CLIENT_ID }}
+          GOOGLE_ADS_CLIENT_SECRET: ${{ secrets.GOOGLE_ADS_CLIENT_SECRET }}
+          GOOGLE_ADS_REFRESH_TOKEN: ${{ secrets.GOOGLE_ADS_REFRESH_TOKEN }}
+          GOOGLE_ADS_CUSTOMER_ID: ${{ secrets.GOOGLE_ADS_CUSTOMER_ID }}
+          DATAFORSEO_LOGIN: ${{ secrets.DATAFORSEO_LOGIN }}
+          DATAFORSEO_PASSWORD: ${{ secrets.DATAFORSEO_PASSWORD }}
+        run: python scripts/1_expand_seeds.py
 
       # - name: Step 2 - Competitor keywords
       #   env:
@@ -39,21 +38,21 @@ jobs:
       #     DATAFORSEO_PASSWORD: ${{ secrets.DATAFORSEO_PASSWORD }}
       #   run: python scripts/2_competitor_keywords.py
 
-      # - name: Step 3 - Merge and dedupe
-      #   run: python scripts/3_merge_dedupe.py
+      - name: Step 3 - Merge and dedupe
+        run: python scripts/3_merge_dedupe.py
 
-      # - name: Step 4 - Enrich data
-      #   env:
-      #     GOOGLE_ADS_DEVELOPER_TOKEN: ${{ secrets.GOOGLE_ADS_DEVELOPER_TOKEN }}
-      #     GOOGLE_ADS_CLIENT_ID: ${{ secrets.GOOGLE_ADS_CLIENT_ID }}
-      #     GOOGLE_ADS_CLIENT_SECRET: ${{ secrets.GOOGLE_ADS_CLIENT_SECRET }}
-      #     GOOGLE_ADS_REFRESH_TOKEN: ${{ secrets.GOOGLE_ADS_REFRESH_TOKEN }}
-      #     GOOGLE_ADS_CUSTOMER_ID: ${{ secrets.GOOGLE_ADS_CUSTOMER_ID }}
-      #     DATAFORSEO_LOGIN: ${{ secrets.DATAFORSEO_LOGIN }}
-      #     DATAFORSEO_PASSWORD: ${{ secrets.DATAFORSEO_PASSWORD }}
-      #   run: python scripts/4_enrich_data.py
+      - name: Step 4 - Enrich data
+        env:
+          GOOGLE_ADS_DEVELOPER_TOKEN: ${{ secrets.GOOGLE_ADS_DEVELOPER_TOKEN }}
+          GOOGLE_ADS_CLIENT_ID: ${{ secrets.GOOGLE_ADS_CLIENT_ID }}
+          GOOGLE_ADS_CLIENT_SECRET: ${{ secrets.GOOGLE_ADS_CLIENT_SECRET }}
+          GOOGLE_ADS_REFRESH_TOKEN: ${{ secrets.GOOGLE_ADS_REFRESH_TOKEN }}
+          GOOGLE_ADS_CUSTOMER_ID: ${{ secrets.GOOGLE_ADS_CUSTOMER_ID }}
+          DATAFORSEO_LOGIN: ${{ secrets.DATAFORSEO_LOGIN }}
+          DATAFORSEO_PASSWORD: ${{ secrets.DATAFORSEO_PASSWORD }}
+        run: python scripts/4_enrich_data.py
 
-      - name: Step 5 - Classify intent
+      - name: Step 5 - Classify intent and merge
         run: python scripts/5_classify_intent.py
 
       - name: Commit results

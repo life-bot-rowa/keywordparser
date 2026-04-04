@@ -65,26 +65,52 @@ def classify_intent(keyword: str) -> str:
 def main():
     print("[Step 5] Classifying intent (rule-based)...")
 
-    # Try multiple input sources
+    # Load new keywords from pipeline
     enriched = os.path.join(config.RAW_DIR, "enriched.csv")
     merged = os.path.join(config.RAW_DIR, "merged.csv")
     final = config.OUTPUT_FILE
 
+    new_rows = []
     if os.path.exists(enriched):
-        input_path = enriched
+        print(f"  Reading new data from: {enriched}")
+        with open(enriched, "r", encoding="utf-8") as f:
+            new_rows = list(csv.DictReader(f))
     elif os.path.exists(merged):
-        input_path = merged
-    elif os.path.exists(final):
-        input_path = final
-    else:
-        print("  ERROR: No input file found")
+        print(f"  Reading new data from: {merged}")
+        with open(merged, "r", encoding="utf-8") as f:
+            new_rows = list(csv.DictReader(f))
+
+    # Load existing keywords_final.csv
+    existing_rows = []
+    if os.path.exists(final):
+        print(f"  Reading existing data from: {final}")
+        with open(final, "r", encoding="utf-8") as f:
+            existing_rows = list(csv.DictReader(f))
+        print(f"  Existing: {len(existing_rows)} keywords")
+
+    if not new_rows and not existing_rows:
+        print("  ERROR: No input data found")
         sys.exit(1)
 
-    print(f"  Reading from: {input_path}")
-    with open(input_path, "r", encoding="utf-8") as f:
-        rows = list(csv.DictReader(f))
+    # Merge: existing + new, deduplicate by keyword (new wins)
+    seen = {}
+    for row in existing_rows:
+        kw = row.get("keyword", "").strip().lower()
+        if kw:
+            seen[kw] = row
 
-    print(f"  Loaded {len(rows)} keywords")
+    added = 0
+    for row in new_rows:
+        kw = row.get("keyword", "").strip().lower()
+        if kw and kw not in seen:
+            seen[kw] = row
+            added += 1
+
+    rows = list(seen.values())
+    rows.sort(key=lambda x: int(float(x.get("volume", 0) or 0)), reverse=True)
+
+    print(f"  New keywords added: {added}")
+    print(f"  Total after merge: {len(rows)} keywords")
 
     # Classify
     for row in rows:
