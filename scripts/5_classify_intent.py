@@ -1,126 +1,96 @@
 """
-Step 5: Classify keyword intent using Groq API (LLaMA).
-Reads raw/enriched.csv, classifies in batches of 500, saves output/keywords_final.csv.
-Optionally sends Telegram notification.
+Step 5: Classify keyword intent using rule-based approach.
+Reads raw/enriched.csv (or merged.csv, or output/keywords_final.csv),
+classifies intent, saves output/keywords_final.csv.
 """
 
 import csv
-import json
 import os
+import re
 import sys
-import time
-
-import requests
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import config
 
-INTENT_PROMPT = """Classify each keyword's search intent.
-Return one line per keyword in this exact format: keyword|intent
-No headers, no extra text.
+# --- Intent classification rules ---
 
-Intent types: informational, commercial, transactional, navigational
+TRANSACTIONAL_PATTERNS = [
+    r"\b(buy|purchase|order|subscribe|sign up|signup|register|download|install)\b",
+    r"\b(coupon|discount|deal|promo|voucher|cheap|affordable|price|pricing|cost)\b",
+    r"\b(free trial|get started|start now|join|enroll)\b",
+    r"\b(for sale|shop|store|checkout|cart)\b",
+]
 
-Keywords:
-{keywords}"""
+COMMERCIAL_PATTERNS = [
+    r"\b(best|top|review|reviews|comparison|compare|vs|versus|alternative|alternatives)\b",
+    r"\b(recommended|rating|ratings|ranked|ranking)\b",
+    r"\b(worth it|pros and cons|should i)\b",
+    r"\b(cheapest|fastest|most popular|highest rated)\b",
+]
 
-VALID_INTENTS = {"informational", "commercial", "transactional", "navigational"}
+NAVIGATIONAL_PATTERNS = [
+    r"\b(login|log in|sign in|signin|account|my account|dashboard)\b",
+    r"\b(official|website|site|app|homepage)\b",
+    r"\.(com|org|net|io|tv|app)\b",
+    r"\b(netflix|hulu|disney|amazon prime|hbo|tubi|peacock|paramount|apple tv)\b",
+    r"\b(youtube|imdb|rotten tomatoes|letterboxd|justwatch)\b",
+]
 
-
-def classify_batch(keywords: list[str]) -> dict:
-    """Classify a batch of keywords via Groq API."""
-    url = "https://api.groq.com/openai/v1/chat/completions"
-
-    keywords_text = "\n".join(keywords)
-
-    payload = {
-        "model": config.GROQ_MODEL,
-        "messages": [
-            {"role": "user", "content": INTENT_PROMPT.format(keywords=keywords_text)},
-        ],
-        "temperature": 0,
-        "max_tokens": 16000,
-    }
-
-    resp = requests.post(
-        url,
-        json=payload,
-        headers={"Authorization": f"Bearer {config.GROQ_API_KEY}"},
-        timeout=180,
-    )
-    resp.raise_for_status()
-    data = resp.json()
-
-    content = data["choices"][0]["message"]["content"].strip()
-
-    result_map = {}
-    for line in content.split("\n"):
-        line = line.strip()
-        if "|" not in line:
-            continue
-        parts = line.rsplit("|", 1)
-        if len(parts) != 2:
-            continue
-        kw = parts[0].strip().lower()
-        intent = parts[1].strip().lower()
-        if intent not in VALID_INTENTS:
-            intent = "informational"
-        result_map[kw] = intent
-
-    return result_map
+TRANSACTIONAL_RE = [re.compile(p, re.IGNORECASE) for p in TRANSACTIONAL_PATTERNS]
+COMMERCIAL_RE = [re.compile(p, re.IGNORECASE) for p in COMMERCIAL_PATTERNS]
+NAVIGATIONAL_RE = [re.compile(p, re.IGNORECASE) for p in NAVIGATIONAL_PATTERNS]
 
 
-def send_telegram(message: str):
-    """Send notification to Telegram."""
-    if not config.TELEGRAM_BOT_TOKEN or not config.TELEGRAM_CHAT_ID:
-        return
+def classify_intent(keyword: str) -> str:
+    """Classify a single keyword's search intent."""
+    # Check transactional first (strongest signal)
+    for pattern in TRANSACTIONAL_RE:
+        if pattern.search(keyword):
+            return "transactional"
 
-    url = f"https://api.telegram.org/bot{config.TELEGRAM_BOT_TOKEN}/sendMessage"
-    requests.post(
-        url,
-        json={"chat_id": config.TELEGRAM_CHAT_ID, "text": message, "parse_mode": "HTML"},
-        timeout=30,
-    )
+    # Check commercial
+    for pattern in COMMERCIAL_RE:
+        if pattern.search(keyword):
+            return "commercial"
+
+    # Check navigational
+    for pattern in NAVIGATIONAL_RE:
+        if pattern.search(keyword):
+            return "navigational"
+
+    # Default
+    return "informational"
 
 
 def main():
-    print("[Step 5] Classifying intent...")
+    print("[Step 5] Classifying intent (rule-based)...")
 
+    # Try multiple input sources
     enriched = os.path.join(config.RAW_DIR, "enriched.csv")
     merged = os.path.join(config.RAW_DIR, "merged.csv")
-    input_path = enriched if os.path.exists(enriched) else merged
+    final = config.OUTPUT_FILE
+
+    if os.path.exists(enriched):
+        input_path = enriched
+    elif os.path.exists(merged):
+        input_path = merged
+    elif os.path.exists(final):
+        input_path = final
+    else:
+        print("  ERROR: No input file found")
+        sys.exit(1)
+
+    print(f"  Reading from: {input_path}")
     with open(input_path, "r", encoding="utf-8") as f:
         rows = list(csv.DictReader(f))
 
     print(f"  Loaded {len(rows)} keywords")
 
-    keywords_list = [row["keyword"] for row in rows]
-    batch_size = config.GROQ_BATCH_SIZE
-
-    intent_data = {}
-    for i in range(0, len(keywords_list), batch_size):
-        batch = keywords_list[i : i + batch_size]
-        batch_num = i // batch_size + 1
-        total_batches = (len(keywords_list) - 1) // batch_size + 1
-        print(f"  Intent batch {batch_num}/{total_batches} ({len(batch)} keywords)")
-
-        try:
-            result = classify_batch(batch)
-            intent_data.update(result)
-        except Exception as e:
-            print(f"  ERROR in batch {batch_num}: {e}")
-            # Assign default intent for failed batch
-            for kw in batch:
-                intent_data.setdefault(kw.lower(), "informational")
-
-        time.sleep(2)  # Groq rate limit
-
-    # Merge intent into rows
+    # Classify
     for row in rows:
-        kw = row["keyword"].lower()
-        row["intent"] = intent_data.get(kw, "informational")
+        row["intent"] = classify_intent(row["keyword"])
 
-    # Save final output
+    # Save
     os.makedirs(os.path.dirname(config.OUTPUT_FILE), exist_ok=True)
     with open(config.OUTPUT_FILE, "w", newline="", encoding="utf-8") as f:
         writer = csv.DictWriter(
@@ -154,15 +124,6 @@ def main():
 
     stats = "\n".join(f"  {k}: {v}" for k, v in sorted(intent_counts.items()))
     print(f"  Intent distribution:\n{stats}")
-
-    # Telegram notification
-    msg = (
-        f"<b>Keyword Pipeline Complete</b>\n\n"
-        f"Total keywords: {len(rows)}\n"
-        f"Intent breakdown:\n"
-        + "\n".join(f"  {k}: {v}" for k, v in sorted(intent_counts.items()))
-    )
-    send_telegram(msg)
     print("  Done!")
 
 
