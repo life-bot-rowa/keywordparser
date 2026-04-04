@@ -113,9 +113,9 @@ def main():
 
     keywords_list = [row["keyword"] for row in rows]
 
-    # Google Ads: volume + CPC + competition (batches of 1000 — API limit)
+    # Google Ads: volume + CPC + competition (batches of 20 — API limit)
     volume_data = {}
-    batch_size = 1000
+    batch_size = 20
     for i in range(0, len(keywords_list), batch_size):
         batch = keywords_list[i : i + batch_size]
         batch_num = i // batch_size + 1
