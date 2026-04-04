@@ -39,14 +39,18 @@ def get_related_keywords(seeds: list[str]) -> list[dict]:
             auth=(config.DATAFORSEO_LOGIN, config.DATAFORSEO_PASSWORD),
             timeout=120,
         )
+        print(f"  HTTP status: {resp.status_code}", flush=True)
         if resp.status_code == 402:
-            print(f"  WARNING: 402 Payment Required — skipping seed '{seed}'")
+            print(f"  WARNING: 402 Payment Required — skipping seed '{seed}'", flush=True)
+            continue
+        if resp.status_code != 200:
+            print(f"  WARNING: HTTP {resp.status_code} — {resp.text[:300]}", flush=True)
             continue
         resp.raise_for_status()
         data = resp.json()
 
         if data.get("status_code") != 20000:
-            print(f"  WARNING: API error for '{seed}': {data.get('status_message')}")
+            print(f"  WARNING: API error for '{seed}': {data.get('status_code')} {data.get('status_message')}", flush=True)
             continue
 
         for task in data.get("tasks", []):
