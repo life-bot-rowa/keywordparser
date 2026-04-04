@@ -27,11 +27,11 @@ jobs:
           DATAFORSEO_PASSWORD: ${{ secrets.DATAFORSEO_PASSWORD }}
         run: python scripts/1_expand_seeds.py
 
-      - name: Step 2 - Competitor keywords
-        env:
-          DATAFORSEO_LOGIN: ${{ secrets.DATAFORSEO_LOGIN }}
-          DATAFORSEO_PASSWORD: ${{ secrets.DATAFORSEO_PASSWORD }}
-        run: python scripts/2_competitor_keywords.py
+      # - name: Step 2 - Competitor keywords
+      #   env:
+      #     DATAFORSEO_LOGIN: ${{ secrets.DATAFORSEO_LOGIN }}
+      #     DATAFORSEO_PASSWORD: ${{ secrets.DATAFORSEO_PASSWORD }}
+      #   run: python scripts/2_competitor_keywords.py
 
       - name: Step 3 - Merge and dedupe
         run: python scripts/3_merge_dedupe.py
