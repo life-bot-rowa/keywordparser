@@ -1,0 +1,37 @@
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+# --- DataForSEO ---
+DATAFORSEO_LOGIN = os.getenv("DATAFORSEO_LOGIN")
+DATAFORSEO_PASSWORD = os.getenv("DATAFORSEO_PASSWORD")
+
+# --- Groq (intent classification) ---
+GROQ_API_KEY = os.getenv("GROQ_API_KEY")
+GROQ_MODEL = os.getenv("GROQ_MODEL", "llama-3.3-70b-versatile")
+
+# --- Telegram (optional) ---
+TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
+TELEGRAM_CHAT_ID = os.getenv("TELEGRAM_CHAT_ID")
+
+# --- Filters ---
+MIN_VOLUME = int(os.getenv("MIN_VOLUME", "10"))
+LANGUAGE = "en"
+LOCATION_CODE = 2840  # United States
+
+STOP_WORDS = [
+    "porn", "xxx", "nude", "naked", "sex",
+    "free download", "torrent", "crack", "keygen",
+    "login", "sign in", "log in",
+]
+
+# --- Batch sizes ---
+DATAFORSEO_BATCH_SIZE = 1000
+GROQ_BATCH_SIZE = 500
+
+# --- Paths ---
+SEEDS_FILE = "seeds/seeds.txt"
+COMPETITORS_FILE = "competitors/competitors.txt"
+RAW_DIR = "raw"
+OUTPUT_FILE = "output/keywords_final.csv"
