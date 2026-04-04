@@ -1,42 +1,245 @@
 keyword,volume,cpc,competition,keyword_difficulty,intent,source
-math solver,7480000,1.66,0.01,0,informational,seed_expansion
-math ai,201000,0.8,0.11,0,informational,seed_expansion
-math a i,201000,0.8,0.11,0,informational,seed_expansion
-microsoft math solver,135000,2.75,0.0,0,informational,seed_expansion
-math calculator,110000,0.48,0.04,0,informational,seed_expansion
-math problem solver,22200,2.02,0.26,0,informational,seed_expansion
-math solver ai,18100,1.33,0.09,0,informational,seed_expansion
-google math solver,18100,2.16,0.02,0,informational,seed_expansion
-math solver scanner,14800,1.26,0.09,0,informational,seed_expansion
-math solver online,12100,1.81,0.02,0,informational,seed_expansion
-math solver with steps,12100,1.37,0.05,0,informational,seed_expansion
-math solver app,5400,4.07,0.27,0,informational,seed_expansion
-math solver free,5400,2.09,0.14,0,informational,seed_expansion
-free math solver,5400,2.09,0.14,0,informational,seed_expansion
-math solver with solution free,5400,2.09,0.14,0,informational,seed_expansion
-math solver with steps app,3600,0.04,0.0,0,informational,seed_expansion
-math solver app with steps,3600,0.04,0.0,0,informational,seed_expansion
-math ai solver free,2900,1.6,0.16,0,informational,seed_expansion
-take a picture math solver,1900,1.81,0.19,0,informational,seed_expansion
-math solver with solution app,1900,3.73,0.0,0,informational,seed_expansion
-math solver image,1600,1.15,0.07,0,informational,seed_expansion
-ai math solver picture,1600,1.49,0.15,0,informational,seed_expansion
-math solver with solution,880,2.27,0.02,0,informational,seed_expansion
-take a picture math solver online,720,1.03,0.12,0,informational,seed_expansion
-ai math solver free no sign up,590,1.43,0.09,0,informational,seed_expansion
-math solver ai free,480,1.36,0.15,0,informational,seed_expansion
-math solver free app,390,3.79,0.64,0,informational,seed_expansion
-math solver app free,170,2.54,0.4,0,informational,seed_expansion
-math solver free online,170,1.54,0.1,0,informational,seed_expansion
-math solver online free,140,1.21,0.11,0,informational,seed_expansion
-math solver scanner google,110,3.09,0.06,0,informational,seed_expansion
-math solver scanner free,110,2.12,0.17,0,informational,seed_expansion
-microsoft math solver ai,40,5.74,0.19,0,informational,seed_expansion
-math solver with steps online,30,1.08,0.07,0,informational,seed_expansion
-math solver scanner with steps,20,0.0,0.01,0,informational,seed_expansion
-math solver scanner online free,20,0.94,0.13,0,informational,seed_expansion
-math solver image online,10,0.04,0.02,0,informational,seed_expansion
-math solver with steps ai,10,1.3,0.2,0,informational,seed_expansion
-math solver app for android,10,0.0,0.29,0,informational,seed_expansion
-math solver app with solution,10,6.84,0.43,0,informational,seed_expansion
-math solver with solution online,10,0.0,0.0,0,informational,seed_expansion
+what to watch,1220000,1.39,LOW,21,informational,seed_expansion
+movie theater showtimes,1000000,0.25,LOW,71,informational,seed_expansion
+good movies to watch,246000,0.87,LOW,40,informational,seed_expansion
+movies in theaters near me,201000,0.32,LOW,70,informational,seed_expansion
+best movies of all time,165000,0.13,LOW,68,informational,seed_expansion
+new movies on netflix,165000,0.32,LOW,52,informational,seed_expansion
+best new movies,135000,1.23,LOW,40,informational,seed_expansion
+good movies on netflix,110000,0.23,LOW,31,informational,seed_expansion
+new movies in theaters now,110000,1.06,LOW,62,informational,seed_expansion
+best movies to stream right now,90500,1.11,LOW,40,informational,seed_expansion
+what to watch on netflix,74000,0.1,LOW,41,informational,seed_expansion
+what to watch online netflix,74000,0.1,LOW,40,informational,seed_expansion
+movies to watch on netflix,60500,0.33,LOW,43,informational,seed_expansion
+new movies to watch,49500,1.02,LOW,59,informational,seed_expansion
+what to watch this week,49500,1.38,LOW,34,informational,seed_expansion
+what to watch this weekend,49500,1.38,LOW,40,informational,seed_expansion
+best movies streaming right now,49500,1.05,LOW,20,informational,seed_expansion
+free full movies,40500,1.89,LOW,32,informational,seed_expansion
+best movies on amazon prime,40500,0.23,LOW,20,informational,seed_expansion
+top 10 netflix series,33100,0.1,LOW,50,informational,seed_expansion
+free movies app,33100,1.63,LOW,72,informational,seed_expansion
+best anime of all time,33100,0.08,LOW,3,informational,seed_expansion
+good movies to watch on netflix,33100,0.29,LOW,31,informational,seed_expansion
+best series to watch on netflix,27100,0.11,LOW,29,informational,seed_expansion
+sites to watch movies for free,27100,2.46,LOW,20,informational,seed_expansion
+good movie to watch on netflix,27100,0.21,LOW,31,informational,seed_expansion
+best comedy movies of all time,27100,0.1,LOW,18,informational,seed_expansion
+new movies to stream on netflix,22200,0.39,LOW,43,informational,seed_expansion
+what movie should i watch,22200,0.5,LOW,10,informational,seed_expansion
+10 best movies on netflix,18100,0.18,LOW,21,informational,seed_expansion
+good family movies on netflix,18100,0.17,LOW,9,informational,seed_expansion
+movies to stream this weekend,18100,0.96,LOW,11,informational,seed_expansion
+what to watch tonight,14800,1.28,LOW,57,informational,seed_expansion
+what tv shows are on primetime tonight,14800,5.77,LOW,65,informational,seed_expansion
+what should i watch,14800,0.55,LOW,27,informational,seed_expansion
+most watched netflix series,14800,0.09,LOW,51,informational,seed_expansion
+best comedy movies on netflix,14800,0.14,LOW,9,informational,seed_expansion
+movies 2 watch,12100,3.23,LOW,41,informational,seed_expansion
+best movies on youtube free,12100,0.99,LOW,42,informational,seed_expansion
+antenna tv guide for tonight,12100,7.08,LOW,63,informational,seed_expansion
+10 best movies of all time,9900,0.24,LOW,48,informational,seed_expansion
+movies to watch now,9900,1.51,LOW,41,informational,seed_expansion
+new releases streaming this week,9900,1.3,LOW,18,informational,seed_expansion
+500 free movies on youtube,8100,1.76,LOW,23,informational,seed_expansion
+binge worthy shows on netflix,8100,0.07,LOW,19,informational,seed_expansion
+new comedy movies on netflix,8100,0.38,LOW,6,informational,seed_expansion
+top movies in theaters now,8100,1.07,LOW,55,informational,seed_expansion
+most-watched movies on netflix,8100,0.13,LOW,50,informational,seed_expansion
+best netflix series of all time,6600,0.07,LOW,29,informational,seed_expansion
+good action movies to watch,6600,0.65,LOW,12,informational,seed_expansion
+best family movies of all time,6600,0.11,LOW,2,informational,seed_expansion
+new movies to watch at home,6600,0.93,LOW,13,informational,seed_expansion
+best action movies to watch,6600,0.65,LOW,12,informational,seed_expansion
+new movies to stream on amazon prime,6600,0.33,LOW,38,informational,seed_expansion
+feel-good movies on netflix,6600,0.09,LOW,0,informational,seed_expansion
+new release movies bollywood,5400,1.42,LOW,36,informational,seed_expansion
+top 10 best series of all time,5400,0.32,LOW,24,informational,seed_expansion
+good movies to watch comedy,5400,0.49,LOW,29,informational,seed_expansion
+best amazon prime original series,4400,0.6,LOW,18,informational,seed_expansion
+top 25 movies of all time,4400,0.18,LOW,48,informational,seed_expansion
+best movies to watch now,3600,1.16,LOW,69,informational,seed_expansion
+what tv shows are on primetime tonight nbc,3600,6.81,LOW,37,informational,seed_expansion
+bollywood movies releasing this week,3600,0.0,LOW,41,informational,seed_expansion
+best hindi movies on netflix,3600,0.02,LOW,3,informational,seed_expansion
+new movies on amazon prime free,3600,0.3,LOW,28,informational,seed_expansion
+best series to watch on prime,3600,0.11,LOW,9,informational,seed_expansion
+netflix top 10 this week,3600,0.3,LOW,28,informational,seed_expansion
+best movies of all time imdb,3600,0.06,LOW,13,informational,seed_expansion
+best family comedy movies,3600,0.3,LOW,4,informational,seed_expansion
+what to watch movie,2900,1.24,LOW,45,informational,seed_expansion
+best movies to stream on netflix,2900,0.19,LOW,46,informational,seed_expansion
+new episodes tonight streaming,2900,2.24,LOW,76,informational,seed_expansion
+best netflix movies of all time,2900,0.13,LOW,19,informational,seed_expansion
+new movies to stream 2026,2900,1.32,LOW,12,informational,seed_expansion
+what should i watch anime,2900,0.05,LOW,6,informational,seed_expansion
+top 50 greatest movies of all time,2900,0.14,LOW,48,informational,seed_expansion
+best series to watch ever,2400,0.37,LOW,18,informational,seed_expansion
+what tv shows are on tonight,2400,2.51,LOW,53,informational,seed_expansion
+good movies to watch free,2400,1.52,LOW,27,informational,seed_expansion
+good movies to watch romance,2400,0.89,LOW,38,informational,seed_expansion
+best movies of all time bollywood,2400,0.04,LOW,17,informational,seed_expansion
+10 best comedy movies of all time,2400,0.19,LOW,31,informational,seed_expansion
+movies to watch when bored,2400,1.74,LOW,0,informational,seed_expansion
+top 10 movies in theaters now,2400,1.39,LOW,60,informational,seed_expansion
+top 10 comedy movies,2400,0.26,LOW,32,informational,seed_expansion
+what to watch on youtube,1900,4.56,LOW,29,informational,seed_expansion
+comedy family movies on netflix,1900,0.18,LOW,12,informational,seed_expansion
+what to watch today,1900,1.51,LOW,48,informational,seed_expansion
+top 10 streaming shows this week,1900,0.92,LOW,84,informational,seed_expansion
+best movies on netflix hollywood,1900,0.24,LOW,13,informational,seed_expansion
+movies to watch on netflix with family,1900,0.34,LOW,19,informational,seed_expansion
+best comedy movies bollywood,1900,0.0,LOW,1,informational,seed_expansion
+amazon prime new release movies,1600,0.18,LOW,22,informational,seed_expansion
+good movies to watch at home,1600,0.74,LOW,7,informational,seed_expansion
+best movies of all time hollywood,1600,0.23,LOW,59,informational,seed_expansion
+best movies of all time reddit,1600,0.06,LOW,1,informational,seed_expansion
+movie recommendations reddit,1600,0.04,LOW,3,informational,seed_expansion
+what to watch on netflix movies,1300,0.18,LOW,27,informational,seed_expansion
+top 20 most watched netflix series,1300,0.1,LOW,48,informational,seed_expansion
+what to watch tonight streaming,1300,1.05,LOW,49,informational,seed_expansion
+what to watch this weekend streaming,1300,1.09,LOW,24,informational,seed_expansion
+what movie should i watch quiz,1300,0.0,LOW,0,informational,seed_expansion
+top 10 best movies on youtube free,1300,0.86,LOW,10,informational,seed_expansion
+10 best movies on tubi,1300,0.85,LOW,2,informational,seed_expansion
+top 10 romantic movies on netflix,1300,0.08,LOW,13,informational,seed_expansion
+what to watch series,1000,0.51,LOW,45,informational,seed_expansion
+movie to watch tonight at home,1000,1,LOW,31,informational,seed_expansion
+top 10 family movies,1000,0.46,LOW,10,informational,seed_expansion
+good family movies on disney plus,1000,2.83,LOW,15,informational,seed_expansion
+free full movies on netflix,1000,1.18,LOW,33,informational,seed_expansion
+what tv shows are on primetime tonight cbs,1000,0.0,LOW,35,informational,seed_expansion
+play free movies on tubi,1000,1.01,LOW,30,informational,seed_expansion
+what movie should i watch on netflix,1000,0.12,LOW,31,informational,seed_expansion
+best netflix original movies,1000,0.07,LOW,14,informational,seed_expansion
+what tv shows are on primetime tonight near me,880,3.44,LOW,67,informational,seed_expansion
+what tv shows are on primetime tonight abc,880,7.53,LOW,37,informational,seed_expansion
+what to watch this weekend all platforms,880,1.81,LOW,43,informational,seed_expansion
+what to watch on amazon prime for free,880,0.21,LOW,26,informational,seed_expansion
+what tv show should i watch quiz,880,3.97,LOW,8,informational,seed_expansion
+top 10 romantic movies hollywood,880,0.27,LOW,23,informational,seed_expansion
+best comedy movies 2000 to 2020,880,0.25,LOW,7,informational,seed_expansion
+comedy movies bollywood,880,0.0,LOW,4,informational,seed_expansion
+rotten tomatoes movies to watch,720,0.84,LOW,99,informational,seed_expansion
+new episodes streaming this week,720,0.78,LOW,40,informational,seed_expansion
+best comedy movies for adults,720,0.49,LOW,18,informational,seed_expansion
+90 minute movies on netflix,720,0.04,LOW,6,informational,seed_expansion
+what to watch free,590,1.78,LOW,56,informational,seed_expansion
+top 25 netflix series of all time,590,0.05,LOW,21,informational,seed_expansion
+what tv shows are on primetime tonight usa,590,7.02,LOW,41,informational,seed_expansion
+what to watch this weekend on netflix,590,0.13,LOW,47,informational,seed_expansion
+amazon prime new releases hindi,590,0.0,LOW,17,informational,seed_expansion
+some good movies to watch on netflix,590,0.35,LOW,31,informational,seed_expansion
+what movie should i watch comedy,590,0.33,LOW,22,informational,seed_expansion
+good movies to watch free on youtube,480,0.23,LOW,27,informational,seed_expansion
+top 10 feel-good movies on netflix,480,0.11,LOW,7,informational,seed_expansion
+what to watch online,390,1.18,LOW,53,informational,seed_expansion
+what to watch on netflix series,390,0.11,LOW,30,informational,seed_expansion
+10 must watch movies,390,0.49,LOW,31,informational,seed_expansion
+top 10 most watched netflix series,390,0.04,LOW,49,informational,seed_expansion
+new episodes tonight streaming netflix,390,0.0,LOW,59,informational,seed_expansion
+what shows have new episodes tonight,390,0.78,LOW,40,informational,seed_expansion
+top 10 hindi movies on netflix,390,0.0,LOW,2,informational,seed_expansion
+what should i watch quiz,390,0.0,LOW,8,informational,seed_expansion
+best anime to watch 2024,390,0.0,LOW,3,informational,seed_expansion
+1 hour movies on netflix,390,0.0,LOW,17,informational,seed_expansion
+what to watch this weekend on tv,320,1.31,LOW,32,informational,seed_expansion
+what should i watch movie,320,0.38,LOW,25,informational,seed_expansion
+best anime movie to watch,320,0.04,LOW,29,informational,seed_expansion
+romantic movies on netflix hollywood,320,0.18,LOW,7,informational,seed_expansion
+top movies in theaters now near me,320,0.87,LOW,60,informational,seed_expansion
+what to watch on netflix today,260,0.13,LOW,59,informational,seed_expansion
+what movie should i watch generator,260,0.0,LOW,6,informational,seed_expansion
+anime to watch when bored,260,0.0,LOW,2,informational,seed_expansion
+best love story movies hollywood,260,0.28,LOW,12,informational,seed_expansion
+best love story movies bollywood,260,0.89,LOW,5,informational,seed_expansion
+20 best comedy movies of all time,260,0.07,LOW,33,informational,seed_expansion
+series to watch 2026,210,0.26,LOW,16,informational,seed_expansion
+family movies on netflix hindi,210,0.0,LOW,7,informational,seed_expansion
+what to watch this weekend on prime,210,1.1,LOW,22,informational,seed_expansion
+top 10 romantic movies bollywood,210,0.0,LOW,0,informational,seed_expansion
+10 best movies on netflix hindi,210,0.0,LOW,4,informational,seed_expansion
+suggest me a movie to watch,210,0.43,LOW,20,informational,seed_expansion
+what to watch family,170,0.0,LOW,10,informational,seed_expansion
+new family movies streaming this weekend,170,1.32,LOW,1,informational,seed_expansion
+what to watch this weekend decider,170,0.0,LOW,22,informational,seed_expansion
+suggest a movie on netflix,170,0.34,LOW,34,informational,seed_expansion
+anime to watch 2024,170,0.0,LOW,3,informational,seed_expansion
+top 10 best movies on netflix hollywood,170,0.22,LOW,22,informational,seed_expansion
+what to watch tonight at home,140,1.14,LOW,48,informational,seed_expansion
+what tv shows are on primetime tonight abc nbc,140,0.0,LOW,60,informational,seed_expansion
+what to watch this weekend at home,140,0.7,LOW,10,informational,seed_expansion
+best hollywood movies to watch,140,0.11,LOW,40,informational,seed_expansion
+hindi movies name from a to z,140,0.0,LOW,6,informational,seed_expansion
+best movies on netflix bollywood,140,0.0,LOW,9,informational,seed_expansion
+movies to watch when bored on netflix,140,0.06,LOW,20,informational,seed_expansion
+what to watch on netflix with family,110,0.03,LOW,2,informational,seed_expansion
+what to watch on youtube when you are bored,110,0.0,LOW,0,informational,seed_expansion
+what to watch this weekend movies,110,1.09,LOW,12,informational,seed_expansion
+amazon prime best web series hindi,110,0.0,LOW,0,informational,seed_expansion
+what movie should i watch streaming,110,1.35,LOW,20,informational,seed_expansion
+what movie should i watch reddit,110,0.0,LOW,1,informational,seed_expansion
+best movies in theaters now rotten tomatoes,110,0.01,LOW,100,informational,seed_expansion
+what to watch on netflix for teens,90,0.03,LOW,3,informational,seed_expansion
+25 movies to watch before you die,90,0.0,LOW,29,informational,seed_expansion
+movies to watch when bored comedy,90,4.57,LOW,34,informational,seed_expansion
+family feel-good movies on netflix,90,0.11,LOW,19,informational,seed_expansion
+what to watch on youtube for free,70,0.0,LOW,22,informational,seed_expansion
+what to watch on youtube when you are bored adults,70,0.0,LOW,0,informational,seed_expansion
+best series to watch on netflix for teens,70,0.05,LOW,0,informational,seed_expansion
+what to watch tonight netflix,70,0.02,LOW,46,informational,seed_expansion
+new episodes tonight streaming free,70,0.89,LOW,94,informational,seed_expansion
+new episodes tonight streaming hulu,70,0.12,LOW,28,informational,seed_expansion
+what to watch next generator,70,0.0,LOW,23,informational,seed_expansion
+what romance anime should i watch,70,0.0,LOW,4,informational,seed_expansion
+10 best movies of all time hollywood,70,0.05,LOW,67,informational,seed_expansion
+completed series to watch on netflix,50,0.07,LOW,17,informational,seed_expansion
+what to watch on youtube reddit,50,0.0,LOW,0,informational,seed_expansion
+what to watch tonight streaming movies,50,1.8,LOW,40,informational,seed_expansion
+what to watch this weekend hindi,50,0.0,LOW,6,informational,seed_expansion
+what should i watch netflix,50,0.03,LOW,63,informational,seed_expansion
+30 best movies on netflix,50,0.06,LOW,37,informational,seed_expansion
+what to watch on netflix romance,40,0.26,LOW,6,informational,seed_expansion
+new episodes tonight streaming amazon prime,40,0.2,LOW,45,informational,seed_expansion
+what should i watch series,40,0.08,LOW,46,informational,seed_expansion
+what movie should i watch in theaters,40,0.33,LOW,39,informational,seed_expansion
+what to watch on netflix hindi,30,0.0,LOW,4,informational,seed_expansion
+what to watch tonight streaming netflix,30,0.06,LOW,59,informational,seed_expansion
+what to watch guardian,30,0.0,LOW,19,informational,seed_expansion
+10 best movies of all time rotten tomatoes,30,0.0,LOW,43,informational,seed_expansion
+10 best movies on netflix series,30,0.34,LOW,,informational,seed_expansion
+what to watch on youtube when bored for free,20,0.0,LOW,,informational,seed_expansion
+what to watch on youtube documentaries,20,0.0,LOW,6,informational,seed_expansion
+what to watch free on youtube,20,16.65,LOW,22,informational,seed_expansion
+best series to watch on netflix 2026,20,0.04,LOW,,informational,seed_expansion
+new episodes tonight streaming hbo max,20,0.0,LOW,,informational,seed_expansion
+what should i binge-watch quiz,20,0.0,LOW,,informational,seed_expansion
+top 10 free movies to watch,20,0.25,LOW,,informational,seed_expansion
+10 best movies of all time bollywood,20,0.0,LOW,,informational,seed_expansion
+movies to watch when bored pg 13,20,0.0,LOW,3,informational,seed_expansion
+movies to watch when bored animated,20,0.0,LOW,8,informational,seed_expansion
+movies to watch when bored romance,20,0.09,LOW,,informational,seed_expansion
+what movie should i watch romance,20,0.08,LOW,13,informational,seed_expansion
+what movie should i watch quiz buzzfeed,20,0.0,LOW,0,informational,seed_expansion
+what to watch series on netflix,10,0.04,LOW,92,informational,seed_expansion
+what to watch series on amazon prime,10,0.0,LOW,41,informational,seed_expansion
+what to watch on youtube movies,10,0.0,LOW,74,informational,seed_expansion
+best movies to watch with family bollywood,10,0.0,LOW,,informational,seed_expansion
+new episodes tonight streaming hbo,10,0.0,LOW,,informational,seed_expansion
+what to watch this weekend on max,10,0.0,LOW,23,informational,seed_expansion
+what tv show should i watch quiz buzzfeed,10,0.0,LOW,45,informational,seed_expansion
+10 best movies of all time reddit,10,0.0,LOW,,informational,seed_expansion
+10 best movies of all time imdb,10,0.0,LOW,,informational,seed_expansion
+good movies to watch comedy on netflix,10,0.06,LOW,22,informational,seed_expansion
+movies to watch when bored bollywood,10,0.0,LOW,,informational,seed_expansion
+movies to watch when bored horror,10,0.0,LOW,,informational,seed_expansion
+movies to watch when bored reddit,10,0.0,LOW,,informational,seed_expansion
+good movies to watch when bored for 12-year olds,10,0.0,LOW,13,informational,seed_expansion
+what movie should i watch animated,10,0.0,LOW,10,informational,seed_expansion
+what movie should i watch quiz netflix,10,0.0,LOW,5,informational,seed_expansion
+what movie should i watch based on what i like,10,0.0,LOW,57,informational,seed_expansion
+what movie should i watch com,10,0.0,LOW,,informational,seed_expansion
+list of movie recommendations,10,0.36,LOW,,informational,seed_expansion
+top 10 must watch movies reddit,10,0.0,LOW,,informational,seed_expansion
+suggest me a movie to watch comedy,10,0.0,LOW,,informational,seed_expansion
