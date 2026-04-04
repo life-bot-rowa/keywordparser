@@ -1,0 +1,47 @@
+name: Competitor Keywords
+
+on:
+  workflow_dispatch:
+
+jobs:
+  run-competitors:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Fetch competitor keywords
+        env:
+          DATAFORSEO_LOGIN: ${{ secrets.DATAFORSEO_LOGIN }}
+          DATAFORSEO_PASSWORD: ${{ secrets.DATAFORSEO_PASSWORD }}
+        run: python scripts/2_competitor_keywords.py
+
+      - name: Save checkpoint
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -f raw/competitor_keywords.csv 2>/dev/null || true
+          git diff --cached --quiet || git commit -m "checkpoint: competitor_keywords.csv [$(date +%Y-%m-%d)]"
+          git pull --rebase
+          git push
+
+      - name: Merge with existing keywords
+        run: python scripts/6_merge_competitors.py
+
+      - name: Commit results
+        if: always()
+        run: |
+          git add output/keywords_final.csv
+          git diff --cached --quiet || git commit -m "Update keywords_final.csv with competitor keywords [$(date +%Y-%m-%d)]"
+          git pull --rebase
+          git push
