@@ -86,39 +86,66 @@ def parse_related_keywords(data: dict) -> list[dict]:
     return keywords
 
 
+def paginated_fetch(endpoint: str, base_payload: dict, parser, label: str) -> list[dict]:
+    """Fetch all pages from an endpoint using offset pagination."""
+    all_kw = []
+    offset = 0
+    limit = 1000
+    page = 1
+
+    while True:
+        payload = {**base_payload, "limit": limit, "offset": offset}
+        print(f"    page {page} (offset {offset})", flush=True)
+        data = api_post(endpoint, [payload])
+        if not data:
+            break
+
+        kws = parser(data)
+        print(f"    -> {len(kws)} keywords", flush=True)
+        if not kws:
+            break
+
+        all_kw.extend(kws)
+
+        if len(kws) < limit:
+            break  # last page
+
+        offset += limit
+        page += 1
+        time.sleep(1)
+
+    return all_kw
+
+
 def expand_seed(seed: str) -> list[dict]:
-    """Run all 3 endpoints for a single seed."""
+    """Run all 3 endpoints for a single seed with pagination."""
     all_kw = []
 
     # 1) Keyword Ideas (accepts array of keywords)
     print(f"  [keyword_ideas] '{seed}'", flush=True)
-    data = api_post(f"{BASE}/keyword_ideas/live", [{
-        "keywords": [seed],
-        "language_code": config.LANGUAGE,
-        "location_code": config.LOCATION_CODE,
-        "limit": 1000,
-    }])
-    if data:
-        kws = parse_keyword_ideas(data)
-        print(f"    -> {len(kws)} keywords", flush=True)
-        all_kw.extend(kws)
+    kws = paginated_fetch(
+        f"{BASE}/keyword_ideas/live",
+        {"keywords": [seed], "language_code": config.LANGUAGE, "location_code": config.LOCATION_CODE},
+        parse_keyword_ideas,
+        "keyword_ideas",
+    )
+    print(f"  keyword_ideas total: {len(kws)}", flush=True)
+    all_kw.extend(kws)
     time.sleep(1)
 
     # 2) Keyword Suggestions (accepts single keyword)
     print(f"  [keyword_suggestions] '{seed}'", flush=True)
-    data = api_post(f"{BASE}/keyword_suggestions/live", [{
-        "keyword": seed,
-        "language_code": config.LANGUAGE,
-        "location_code": config.LOCATION_CODE,
-        "limit": 1000,
-    }])
-    if data:
-        kws = parse_keyword_suggestions(data)
-        print(f"    -> {len(kws)} keywords", flush=True)
-        all_kw.extend(kws)
+    kws = paginated_fetch(
+        f"{BASE}/keyword_suggestions/live",
+        {"keyword": seed, "language_code": config.LANGUAGE, "location_code": config.LOCATION_CODE},
+        parse_keyword_suggestions,
+        "keyword_suggestions",
+    )
+    print(f"  keyword_suggestions total: {len(kws)}", flush=True)
+    all_kw.extend(kws)
     time.sleep(1)
 
-    # 3) Related Keywords (accepts single keyword)
+    # 3) Related Keywords (accepts single keyword, no pagination — depth-based)
     print(f"  [related_keywords] '{seed}'", flush=True)
     data = api_post(f"{BASE}/related_keywords/live", [{
         "keyword": seed,
