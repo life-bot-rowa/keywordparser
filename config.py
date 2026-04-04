@@ -35,7 +35,7 @@ STOP_WORDS = [
 
 # --- Batch sizes ---
 DATAFORSEO_BATCH_SIZE = 1000
-GROQ_BATCH_SIZE = 200
+GROQ_BATCH_SIZE = 50
 
 # --- Paths ---
 SEEDS_FILE = "seeds/seeds.txt"
