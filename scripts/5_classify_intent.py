@@ -91,7 +91,9 @@ def send_telegram(message: str):
 def main():
     print("[Step 5] Classifying intent...")
 
-    input_path = os.path.join(config.RAW_DIR, "enriched.csv")
+    enriched = os.path.join(config.RAW_DIR, "enriched.csv")
+    merged = os.path.join(config.RAW_DIR, "merged.csv")
+    input_path = enriched if os.path.exists(enriched) else merged
     with open(input_path, "r", encoding="utf-8") as f:
         rows = list(csv.DictReader(f))
 
