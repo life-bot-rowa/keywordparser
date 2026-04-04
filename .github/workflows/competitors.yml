@@ -35,6 +35,20 @@ jobs:
           git pull --rebase
           git push
 
+      - name: Enrich with Keyword Difficulty
+        env:
+          DATAFORSEO_LOGIN: ${{ secrets.DATAFORSEO_LOGIN }}
+          DATAFORSEO_PASSWORD: ${{ secrets.DATAFORSEO_PASSWORD }}
+        run: python scripts/7_enrich_competitor_kd.py
+
+      - name: Save KD checkpoint
+        if: always()
+        run: |
+          git add -f raw/competitor_keywords.csv 2>/dev/null || true
+          git diff --cached --quiet || git commit -m "checkpoint: competitor KD enriched [$(date +%Y-%m-%d)]"
+          git pull --rebase
+          git push
+
       - name: Merge with existing keywords
         run: python scripts/6_merge_competitors.py
 
