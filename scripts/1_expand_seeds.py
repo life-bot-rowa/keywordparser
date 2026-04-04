@@ -28,8 +28,8 @@ def get_related_keywords(seeds: list[str]) -> list[dict]:
                 "language_code": config.LANGUAGE,
                 "location_code": config.LOCATION_CODE,
                 "include_seed_keyword": True,
-                "depth": 4,
-                "limit": 20000,
+                "depth": 2,
+                "limit": 5000,
             }
         ]
 
@@ -54,9 +54,14 @@ def get_related_keywords(seeds: list[str]) -> list[dict]:
             continue
 
         for task in data.get("tasks", []):
+            task_status = task.get("status_code")
+            task_msg = task.get("status_message")
+            print(f"  Task status: {task_status} {task_msg}", flush=True)
             result = task.get("result")
             if not result:
+                print(f"  No result for seed '{seed}'", flush=True)
                 continue
+            print(f"  Result items: {sum(len(r.get('items', [])) for r in result)}", flush=True)
             for item in result:
                 for kw_item in item.get("items", []):
                     kw_data = kw_item.get("keyword_data", {})
