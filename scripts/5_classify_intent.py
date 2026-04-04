@@ -15,26 +15,23 @@ import requests
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import config
 
-INTENT_PROMPT = """Classify each keyword's search intent. Return ONLY a JSON array of objects.
-Each object: {"keyword": "...", "intent": "..."}
+INTENT_PROMPT = """Classify each keyword's search intent.
+Return one line per keyword in this exact format: keyword|intent
+No headers, no extra text.
 
-Intent types:
-- informational: user wants to learn something
-- commercial: user is researching before buying
-- transactional: user wants to buy/sign up/download
-- navigational: user wants a specific website or page
+Intent types: informational, commercial, transactional, navigational
 
 Keywords:
-{keywords}
+{keywords}"""
 
-Return ONLY valid JSON, no other text."""
+VALID_INTENTS = {"informational", "commercial", "transactional", "navigational"}
 
 
 def classify_batch(keywords: list[str]) -> dict:
     """Classify a batch of keywords via Groq API."""
     url = "https://api.groq.com/openai/v1/chat/completions"
 
-    keywords_text = "\n".join(f"- {kw}" for kw in keywords)
+    keywords_text = "\n".join(keywords)
 
     payload = {
         "model": config.GROQ_MODEL,
@@ -42,35 +39,33 @@ def classify_batch(keywords: list[str]) -> dict:
             {"role": "user", "content": INTENT_PROMPT.format(keywords=keywords_text)},
         ],
         "temperature": 0,
-        "max_tokens": 8000,
+        "max_tokens": 16000,
     }
 
     resp = requests.post(
         url,
         json=payload,
         headers={"Authorization": f"Bearer {config.GROQ_API_KEY}"},
-        timeout=120,
+        timeout=180,
     )
     resp.raise_for_status()
     data = resp.json()
 
     content = data["choices"][0]["message"]["content"].strip()
 
-    # Parse JSON from response (handle markdown code blocks)
-    if content.startswith("```"):
-        content = content.split("\n", 1)[1].rsplit("```", 1)[0]
-
     result_map = {}
-    try:
-        items = json.loads(content)
-        for item in items:
-            kw = item.get("keyword", "").lower()
-            intent = item.get("intent", "informational").lower()
-            if intent not in ("informational", "commercial", "transactional", "navigational"):
-                intent = "informational"
-            result_map[kw] = intent
-    except json.JSONDecodeError:
-        print(f"  WARNING: Failed to parse Groq response")
+    for line in content.split("\n"):
+        line = line.strip()
+        if "|" not in line:
+            continue
+        parts = line.rsplit("|", 1)
+        if len(parts) != 2:
+            continue
+        kw = parts[0].strip().lower()
+        intent = parts[1].strip().lower()
+        if intent not in VALID_INTENTS:
+            intent = "informational"
+        result_map[kw] = intent
 
     return result_map
 
