@@ -12,6 +12,18 @@ import sys
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import config
 
+COMPETITION_MAP = {"LOW": 0.25, "MEDIUM": 0.5, "HIGH": 0.75, "UNSPECIFIED": 0}
+
+
+def _parse_competition(val) -> float:
+    """Parse competition value — can be float or string (LOW/MEDIUM/HIGH)."""
+    if isinstance(val, str) and val in COMPETITION_MAP:
+        return COMPETITION_MAP[val]
+    try:
+        return float(val or 0)
+    except (ValueError, TypeError):
+        return 0.0
+
 
 def is_english(text: str) -> bool:
     """Simple heuristic: reject if >30% non-ASCII characters."""
@@ -60,7 +72,7 @@ def main():
                 "keyword": kw,
                 "volume": volume,
                 "cpc": float(row.get("cpc", 0) or 0),
-                "competition": float(row.get("competition", 0) or 0),
+                "competition": _parse_competition(row.get("competition", 0)),
                 "source": source,
             }
 
