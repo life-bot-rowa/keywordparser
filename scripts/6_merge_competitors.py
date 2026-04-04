@@ -79,17 +79,19 @@ def classify_intent(keyword: str) -> str:
 def main():
     print("[Step 6] Merging competitor keywords with existing data...")
 
-    # Load existing keywords_final.csv
+    output_path = "output/competitors_kws.csv"
+
+    # Load existing competitors_kws.csv to append
     existing = {}
-    if os.path.exists(config.OUTPUT_FILE):
-        with open(config.OUTPUT_FILE, "r", encoding="utf-8") as f:
+    if os.path.exists(output_path):
+        with open(output_path, "r", encoding="utf-8") as f:
             for row in csv.DictReader(f):
                 kw = row.get("keyword", "").strip().lower()
                 if kw:
                     existing[kw] = row
-        print(f"  Existing keywords: {len(existing)}")
+        print(f"  Existing competitor keywords: {len(existing)}")
 
-    # Load competitor keywords
+    # Load new competitor keywords
     competitor_path = os.path.join(config.RAW_DIR, "competitor_keywords.csv")
     if not os.path.exists(competitor_path):
         print(f"  ERROR: {competitor_path} not found")
@@ -97,9 +99,9 @@ def main():
 
     with open(competitor_path, "r", encoding="utf-8") as f:
         competitor_rows = list(csv.DictReader(f))
-    print(f"  Competitor keywords: {len(competitor_rows)}")
+    print(f"  New competitor keywords: {len(competitor_rows)}")
 
-    # Merge: add new competitor keywords
+    # Add new keywords
     added = 0
     skipped_volume = 0
     skipped_lang = 0
@@ -110,7 +112,6 @@ def main():
         if not kw:
             continue
 
-        # Skip if already exists
         if kw in existing:
             continue
 
@@ -133,6 +134,7 @@ def main():
             "keyword_difficulty": row.get("keyword_difficulty", 0),
             "intent": classify_intent(kw),
             "source": "competitor",
+            "competitor": row.get("competitor", ""),
         }
         added += 1
 
@@ -144,13 +146,13 @@ def main():
     rows.sort(key=lambda x: int(float(x.get("volume", 0) or 0)), reverse=True)
 
     # Save
-    os.makedirs(os.path.dirname(config.OUTPUT_FILE), exist_ok=True)
-    with open(config.OUTPUT_FILE, "w", newline="", encoding="utf-8") as f:
+    os.makedirs(os.path.dirname(output_path), exist_ok=True)
+    with open(output_path, "w", newline="", encoding="utf-8") as f:
         writer = csv.DictWriter(
             f,
             fieldnames=[
                 "keyword", "volume", "cpc", "competition",
-                "keyword_difficulty", "intent", "source",
+                "keyword_difficulty", "intent", "source", "competitor",
             ],
         )
         writer.writeheader()
@@ -162,11 +164,12 @@ def main():
                 "competition": row.get("competition", 0),
                 "keyword_difficulty": row.get("keyword_difficulty", 0),
                 "intent": row.get("intent", "informational"),
-                "source": row.get("source", ""),
+                "source": row.get("source", "competitor"),
+                "competitor": row.get("competitor", ""),
             })
 
     print(f"  Total: {len(rows)} keywords")
-    print(f"  Saved to {config.OUTPUT_FILE}")
+    print(f"  Saved to {output_path}")
     print("  Done!")
 
 

@@ -41,7 +41,7 @@ jobs:
       - name: Commit results
         if: always()
         run: |
-          git add output/keywords_final.csv
+          git add output/competitors_kws.csv
           git diff --cached --quiet || git commit -m "Update keywords_final.csv with competitor keywords [$(date +%Y-%m-%d)]"
           git pull --rebase
           git push
