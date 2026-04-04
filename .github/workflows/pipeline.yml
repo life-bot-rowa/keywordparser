@@ -32,6 +32,16 @@ jobs:
           DATAFORSEO_PASSWORD: ${{ secrets.DATAFORSEO_PASSWORD }}
         run: python scripts/1_expand_seeds.py
 
+      - name: Save after Step 1
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -f raw/*.csv 2>/dev/null || true
+          git diff --cached --quiet || git commit -m "checkpoint: Step 1 expanded.csv [$(date +%Y-%m-%d)]"
+          git pull --rebase
+          git push
+
       # - name: Step 2 - Competitor keywords
       #   env:
       #     DATAFORSEO_LOGIN: ${{ secrets.DATAFORSEO_LOGIN }}
@@ -40,6 +50,14 @@ jobs:
 
       - name: Step 3 - Merge and dedupe
         run: python scripts/3_merge_dedupe.py
+
+      - name: Save after Step 3
+        if: always()
+        run: |
+          git add -f raw/*.csv 2>/dev/null || true
+          git diff --cached --quiet || git commit -m "checkpoint: Step 3 merged.csv [$(date +%Y-%m-%d)]"
+          git pull --rebase
+          git push
 
       - name: Step 4 - Enrich data
         env:
@@ -52,14 +70,21 @@ jobs:
           DATAFORSEO_PASSWORD: ${{ secrets.DATAFORSEO_PASSWORD }}
         run: python scripts/4_enrich_data.py
 
+      - name: Save after Step 4
+        if: always()
+        run: |
+          git add -f raw/*.csv 2>/dev/null || true
+          git diff --cached --quiet || git commit -m "checkpoint: Step 4 enriched.csv [$(date +%Y-%m-%d)]"
+          git pull --rebase
+          git push
+
       - name: Step 5 - Classify intent and merge
         run: python scripts/5_classify_intent.py
 
       - name: Commit results
+        if: always()
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add output/keywords_final.csv
+          git add output/keywords_final.csv raw/*.csv 2>/dev/null || true
           git diff --cached --quiet || git commit -m "Update keywords_final.csv [$(date +%Y-%m-%d)]"
           git pull --rebase
           git push
