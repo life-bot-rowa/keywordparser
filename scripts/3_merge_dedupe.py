@@ -73,9 +73,9 @@ def main():
     removed_stop = 0
 
     for kw, data in seen.items():
-        if data["volume"] < config.MIN_VOLUME:
-            removed_volume += 1
-            continue
+        # if data["volume"] < config.MIN_VOLUME:
+        #     removed_volume += 1
+        #     continue
         if not is_english(kw):
             removed_lang += 1
             continue
