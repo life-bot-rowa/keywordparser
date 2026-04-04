@@ -28,8 +28,8 @@ def get_related_keywords(seeds: list[str]) -> list[dict]:
                 "language_code": config.LANGUAGE,
                 "location_code": config.LOCATION_CODE,
                 "include_seed_keyword": True,
-                "depth": 2,
-                "limit": 1000,
+                "depth": 4,
+                "limit": 20000,
             }
         ]
 
