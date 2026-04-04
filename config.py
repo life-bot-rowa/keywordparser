@@ -35,6 +35,7 @@ STOP_WORDS = [
 
 # --- Batch sizes ---
 DATAFORSEO_BATCH_SIZE = 1000
+MAX_KEYWORDS_PER_DOMAIN = 3000
 GROQ_BATCH_SIZE = 10
 
 # --- Paths ---

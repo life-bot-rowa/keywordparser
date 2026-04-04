@@ -18,6 +18,7 @@ def get_domain_keywords(domain: str) -> list[dict]:
     """Fetch keywords a domain ranks for via DataForSEO Ranked Keywords API."""
     url = "https://api.dataforseo.com/v3/dataforseo_labs/google/ranked_keywords/live"
 
+    max_keywords = config.MAX_KEYWORDS_PER_DOMAIN
     all_keywords = []
     offset = 0
     limit = 1000
@@ -77,6 +78,11 @@ def get_domain_keywords(domain: str) -> list[dict]:
                     )
 
         if not items_found:
+            break
+
+        if len(all_keywords) >= max_keywords:
+            print(f"    Reached limit of {max_keywords} keywords for '{domain}'")
+            all_keywords = all_keywords[:max_keywords]
             break
 
         offset += limit
